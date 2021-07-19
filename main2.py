@@ -21,8 +21,14 @@ def table_catcher(src):
     pass
 
 # handeling ajax
-def wait_for_ajax(driver, selector):
-    return WebDriverWait(driver, 60).until(EC.presence_of_element_located(selector))
+def wait_for_ajax(driver):
+    wait =  WebDriverWait(driver, 60)
+    try:
+        wait.until(lambda driver: driver.execute_script('return jQuery.active') == 0)
+        wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
+        return wait
+    except Exception as e:
+        pass
 
 # get all number of pages
 def number_of_page():
@@ -41,7 +47,7 @@ cars_name = car_finder.text.split('\n')
 
 for car in cars_name:
     """Selecting all car type"""
-    select = wait_for_ajax(driver, (By.ID, 'drpCarType'))
+    select = wait_for_ajax(driver.find_elements_by_id('drpCarType'))
     selecting = Select(select)
     selecting.select_by_visible_text(car)
     car_model = driver.find_element_by_id('drpCarModel')
@@ -50,15 +56,15 @@ for car in cars_name:
     if len(carModels) != 0:
         for model in carModels:
             """Selecting all car model"""
-            mselect = wait_for_ajax(driver, (By.ID, 'drpCarModel'))
+            mselect = wait_for_ajax(driver.find_elements_by_id('drpCarModel'))
             mselecting = Select(mselect)
             mselecting.select_by_visible_text(model)
 
             for char in persian_character.ppe_characters:
                 """Inserting all character to input tag"""
-                char_input = wait_for_ajax(driver, (By.ID, 'txtPartName'))
+                char_input = wait_for_ajax(driver.find_elements_by_id('txtPartName'))
                 char_input.send_keys(char)
-                clicker = wait_for_ajax(driver, (By.ID, 'btnSearch'))
+                clicker = wait_for_ajax(driver.find_elements_by_id('btnSearch'))
                 clicker.click()
                 num_page = number_of_page()
 
@@ -66,7 +72,7 @@ for car in cars_name:
                     for page in range(num_page):
                         """Scraping all pages"""
                         print(f'I\'m in page: {page + 1}')
-                        next = wait_for_ajax(driver, (By.NAME, 'dtPager$ctl02$ctl00'))
+                        next = wait_for_ajax(driver.find_element_by_name('dtPager$ctl02$ctl00'))
                         next.click()
 
                 # clearing the input tag

@@ -3,6 +3,7 @@ import persian_character
 
 # standard
 import hashlib
+import sqlite3
 import time
 import csv
 
@@ -64,34 +65,41 @@ for car in cars_name:
             mselecting = Select(mselect)
             mselecting.select_by_visible_text(model)
 
-            for char in persian_character.ppe_characters:
+            for char in persian_character.persian_ascii_letters:
                 """Inserting all character to input tag"""
                 char_input = driver.find_element_by_id('txtPartName')
                 char_input.send_keys(char)
                 WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID,'btnSearch'))).click()
                 try:
                     while wait_for_page_loading(driver.page_source) != 'display: none':
+                        time.sleep(2)
                         continue
                 except:
                     time.sleep(0.2)
                 num_page = number_of_page()
-                page_src_before = bytearray(driver.page_source, 'utf-8')
-                hash_page_before = hashlib.sha256(page_src_before).hexdigest()
-                print(hash_page_before)
-                if num_page:
+
+                if num_page > 1:
                     for page in range(num_page):
                         """Scraping all pages"""
                         print(f'I\'m in page: {page + 1}')
+
+#                        if page == (num_page - 1):
+#                            break
+#                        else:
                         WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.NAME, 'dtPager$ctl02$ctl00'))).click()
-                        page_src_after = bytearray(driver.page_source, 'utf-8')
-                        hash_page_after = hashlib.sha256(page_src_after).hexdigest()
-                        print(hash_page_after)
+                        page_src = driver.page_source
+                        soup = BeautifulSoup(page_src, 'html.parser')
+                        btn_disable = int(soup.find(class_='btn disabled').text)
+
                         while True:
-                            if hash_page_before == hash_page_after:
-                                page_src_after = bytearray(driver.page_source, 'utf-8')
-                                hash_page_after = hashlib.sha256(page_src_after).hexdigest()
-                            else:
+                            page_src = driver.page_source
+                            soup = BeautifulSoup(page_src, 'html.parser')
+                            btn_disable_ = int(soup.find(class_='btn disabled').text)
+                            time.sleep(0.5)
+                            if btn_disable != btn_disable_ or page == (num_page - 1):
                                 break
+                else:
+                    pass # TODO: compelete this
 
                 # clearing the input tag
                 char_input = driver.find_element_by_id('txtPartName')

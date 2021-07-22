@@ -1,23 +1,9 @@
-1626942721584	geckodriver	INFO	Listening on 127.0.0.1:38539
-1626942722582	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile8oSs0q"
-1626942723365	Marionette	INFO	Marionette enabled
-console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile8oSs0q/search.json.mozlz4", (void 0)))
-1626942725355	Marionette	INFO	Listening on port 40633
-1626942725421	Marionette	WARN	TLS certificate errors will be ignored for this session
-console.error: services.settings: 
-  main/message-groups Signature failed  TypeError: NetworkError when attempting to fetch resource.
-console.error: services.settings: 
-  main/partitioning-exempt-urls Signature failed  TypeError: NetworkError when attempting to fetch resource.
-1626942727085	Marionette	INFO	Stopped listening on port 40633
-
-###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
-
-1626946743962	geckodriver	INFO	Listening on 127.0.0.1:49717
-1626946743966	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilen0g93f"
-1626946744458	Marionette	INFO	Marionette enabled
-console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilen0g93f/search.json.mozlz4", (void 0)))
-1626946745997	Marionette	INFO	Listening on port 34841
-1626946746094	Marionette	WARN	TLS certificate errors will be ignored for this session
+1626964629734	geckodriver	INFO	Listening on 127.0.0.1:49971
+1626964629739	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileZcahyc"
+1626964631071	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileZcahyc/search.json.mozlz4", (void 0)))
+1626964633895	Marionette	INFO	Listening on port 36757
+1626964634231	Marionette	WARN	TLS certificate errors will be ignored for this session
 console.error: services.settings: 
   main/doh-config Signature failed  InvalidSignatureError: Invalid content signature (main/doh-config)
 console.error: services.settings: 
@@ -30,3 +16,4 @@ console.error: services.settings:
 console.warn: services.settings: main/doh-providers Signature verified failed. Retry from scratch
 console.log: WebExtensions: reset-default-search: starting.
 console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1626967830309	Marionette	INFO	Stopped listening on port 36757

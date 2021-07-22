@@ -1,9 +1,9 @@
 # internal
 import settings
-from data_catcher import cars
+from data_catcher import Cars
 
 # standard
-import sqlite3
+import pandas as pd
 import time
 import csv
 
@@ -19,9 +19,29 @@ from bs4 import BeautifulSoup
 
 
 # catch all of table
-def table_catcher(src):
+def table_catcher(src,path):
+    code = []
+    number = []
+    name = []
+    price = []
     soup = BeautifulSoup(src, 'html.parser')
-    
+    table = soup.find('table')
+    header = table.thead.tr.text.strip().split('\n')
+    body = table.tbody
+    for row in body.find_all('tr'):
+        row_list = row.text.strip().split('\n')
+        code.append(row_list[0])
+        number.append(row_list[1])
+        name.append(row_list[2])
+        price.append(row_list[3])
+    frame = {
+        header[0]:code,
+        header[1]:number,
+        header[2]:name,
+        header[3]:price
+    }
+    dataframe = pd.DataFrame(frame)
+    dataframe.to_csv(path)
 
 # handeling ajax
 def wait_for_ajax(driver, selector):
@@ -44,8 +64,8 @@ def wait_for_page_loading(src):
 driver = webdriver.Firefox()
 driver.get(settings.URL)
 
-car = cars(settings.DATA_FILE)
-data = car.reader()
+car_class = Cars(settings.DATA_FILE)
+data = car_class.reader()
 
 
 for car in data:
@@ -53,7 +73,7 @@ for car in data:
     
     for model in list(data.values()):
         if len(model) != 0:
-            for car in model:
+            for cary in model:
                 """Selecting all car model"""
                 
                 for char in settings.persian_ascii_letters:
@@ -63,7 +83,7 @@ for car in data:
                     selecting.select_by_visible_text(car)
                     mselect = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located((By.ID, 'drpCarModel')))
                     mselecting = Select(mselect)
-                    mselecting.select_by_visible_text(car)
+                    mselecting.select_by_visible_text(cary)
                     counter = 1
                     char_input = driver.find_element_by_id('txtPartName')
                     char_input.send_keys(char)
@@ -85,6 +105,8 @@ for car in data:
                             page_src = driver.page_source
                             soup = BeautifulSoup(page_src, 'html.parser')
                             btn_disable = int(soup.find(class_='btn disabled').text)
+                            form = f'{settings.FILES_FOLDER}{car}-{cary}-({page + 1})-{char}.csv'
+                            table_catcher(driver.page_source, form)
 
                             while True:
                                 page_src = driver.page_source

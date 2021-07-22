@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class cars():
+class Cars():
     def __init__(self, path):
         self.path = path
         self.cars_and_models = {}
@@ -55,7 +55,7 @@ class cars():
 
 
 if __name__ == '__main__':
-    car = cars('data.json')
+    car = Cars('data.json')
     car.writer()
 
 

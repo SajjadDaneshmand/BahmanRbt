@@ -3,9 +3,9 @@ import settings
 from data_catcher import Cars
 
 # standard
-import pandas as pd
 import time
 import csv
+import sys
 
 # selenium
 from selenium import webdriver
@@ -14,9 +14,8 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# BeautifulSoup and Requests
 from bs4 import BeautifulSoup
-
+import pandas as pd
 
 # catch all of table
 def table_catcher(src,path):
@@ -43,10 +42,6 @@ def table_catcher(src,path):
     dataframe = pd.DataFrame(frame)
     dataframe.to_csv(path)
 
-# handeling ajax
-def wait_for_ajax(driver, selector):
-    return WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
-
 # get all number of pages
 def number_of_page():
     try:
@@ -62,6 +57,7 @@ def wait_for_page_loading(src):
     return style
 
 driver = webdriver.Firefox()
+driver.set_page_load_timeout(40)
 driver.get(settings.URL)
 
 car_class = Cars(settings.DATA_FILE)
@@ -90,7 +86,7 @@ for car in data:
                     WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located((By.ID,'btnSearch'))).click()
                     try:
                         while wait_for_page_loading(driver.page_source) != 'display: none':
-                            time.sleep(2)
+                            time.sleep(0.5)
                     except:
                         time.sleep(0.2)
 
@@ -119,7 +115,8 @@ for car in data:
                                     driver.get(settings.URL)
                                     break
                     else:
-                        pass # TODO: compelete this
+                        form = f'{settings.FILES_FOLDER}{car}-{cary}-({page + 1})-{char}.csv'
+                        table_catcher(driver.page_source, form)
 
                     # clearing the input tag
                     char_input = driver.find_element_by_id('txtPartName')

@@ -4,21 +4,21 @@ from data_catcher import Cars
 
 # standard
 import time
-import csv
-import sys
+
 
 # selenium
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 
 from bs4 import BeautifulSoup
 import pandas as pd
 
+
 # catch all of table
-def table_catcher(src,path):
+def table_catcher(src, path):
     code = []
     number = []
     name = []
@@ -34,13 +34,14 @@ def table_catcher(src,path):
         name.append(row_list[2])
         price.append(row_list[3])
     frame = {
-        header[0]:code,
-        header[1]:number,
-        header[2]:name,
-        header[3]:price
+        header[0]: code,
+        header[1]: number,
+        header[2]: name,
+        header[3]: price
     }
     dataframe = pd.DataFrame(frame)
-    dataframe.to_csv(path)
+    dataframe.to_excel(path)
+
 
 # get all number of pages
 def number_of_page():
@@ -50,11 +51,13 @@ def number_of_page():
     except:
         return False
 
+
 def wait_for_page_loading(src):
-    soup = BeautifulSoup(src, 'html.parser')
-    display = soup.find('div', attrs={'id':'LoadingTem'})
+    pars = BeautifulSoup(src, 'html.parser')
+    display = pars.find('div', attrs={'id': 'LoadingTem'})
     style = display.get('style')
     return style
+
 
 driver = webdriver.Firefox()
 driver.set_page_load_timeout(40)
@@ -66,29 +69,28 @@ data = car_class.reader()
 
 for car in data:
     """Selecting all car type"""
-    
+
     for model in list(data.values()):
         if len(model) != 0:
             for cary in model:
                 """Selecting all car model"""
-                
+
                 for char in settings.persian_ascii_letters:
                     """Inserting all character to input tag"""
-                    select = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located((By.ID, 'drpCarType')))
+                    select = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located((By.ID, 'drpCarType')))
                     selecting = Select(select)
                     selecting.select_by_visible_text(car)
-                    mselect = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located((By.ID, 'drpCarModel')))
-                    mselecting = Select(mselect)
-                    mselecting.select_by_visible_text(cary)
+                    time.sleep(1)
+                    model_selector = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located((By.ID, 'drpCarModel')))
+                    model_selecting = Select(model_selector)
+                    model_selecting.select_by_visible_text(cary)
                     counter = 1
                     char_input = driver.find_element_by_id('txtPartName')
                     char_input.send_keys(char)
-                    WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located((By.ID,'btnSearch'))).click()
-                    try:
-                        while wait_for_page_loading(driver.page_source) != 'display: none':
-                            time.sleep(0.5)
-                    except:
-                        time.sleep(0.2)
+                    WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located((By.ID, 'btnSearch'))).click()
+
+                    while wait_for_page_loading(driver.page_source) != 'display: none':
+                        time.sleep(0.5)
 
                     num_page = number_of_page()
                     counter += 1
@@ -97,11 +99,11 @@ for car in data:
                             """Scraping all pages"""
                             print(f'I\'m in page: {page + 1}')
 
-                            WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located((By.NAME, 'dtPager$ctl02$ctl00'))).click()
+                            WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located((By.NAME, 'dtPager$ctl02$ctl00'))).click()
                             page_src = driver.page_source
                             soup = BeautifulSoup(page_src, 'html.parser')
                             btn_disable = int(soup.find(class_='btn disabled').text)
-                            form = f'{settings.FILES_FOLDER}{car}-{cary}-({page + 1})-{char}.csv'
+                            form = f'{settings.FILES_FOLDER}{car}-{cary}-({page + 1})-{char}.xlsx'
                             table_catcher(driver.page_source, form)
 
                             while True:
@@ -115,7 +117,7 @@ for car in data:
                                     driver.get(settings.URL)
                                     break
                     else:
-                        form = f'{settings.FILES_FOLDER}{car}-{cary}-({page + 1})-{char}.csv'
+                        form = f'{settings.FILES_FOLDER}{car}-{cary}-(1)-{char}.xlsx'
                         table_catcher(driver.page_source, form)
 
                     # clearing the input tag

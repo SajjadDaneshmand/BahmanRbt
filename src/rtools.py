@@ -8,13 +8,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from exceptions import InternetConnectionError
 from bs4 import BeautifulSoup
-import pandas as pd
 import settings
+import time
+
 
 def selector(driver, selector, text):
     element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
     selecting = Select(element)
     selecting.select_by_visible_text(text)
+
 
 def driver(url):
     # opts = Options()
@@ -29,13 +31,21 @@ def driver(url):
         raise InternetConnectionError('please check your connection')
     return driver
 
+
 def char_sender(driver, selector, character):
     element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
     element.send_keys(character)
 
+
+def char_remover(driver, selector):
+    element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
+    element.clear()
+
+
 def btn_clicker(driver, selector):
     element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
     element.click()
+
 
 def number_of_page(driver):
     try:
@@ -44,47 +54,59 @@ def number_of_page(driver):
     except:
         return False
 
-def table_catcher(src,path):
-    code = []
-    number = []
-    name = []
-    price = []
+
+def table_catcher(src):
+    info = []
     soup = BeautifulSoup(src, 'html.parser')
     table = soup.find('table')
     header = table.thead.tr.text.strip().split('\n')
     body = table.tbody
     for row in body.find_all('tr'):
         row_list = row.text.strip().split('\n')
-        code.append(row_list[0])
-        number.append(row_list[1])
-        name.append(row_list[2])
-        price.append(row_list[3])
-    frame = {
-        header[0]:code,
-        header[1]:number,
-        header[2]:name,
-        header[3]:price
-    }
-    dataframe = pd.DataFrame(frame)
-    dataframe.to_csv(path)
+        info.append(row_list)
+    return info
+
 
 def paging(src, page):
-    values = []
+    time.sleep(0.3)
+    values = {}
     soup = BeautifulSoup(src, 'html.parser')
-    pages = soup.find('span', attrs={'id':'dtPager'})
-    values.append(str(pages.span.text.strip()))
+    pages = soup.find('span', attrs={'id': 'dtPager'})
+    values[str(pages.span.text.strip())] = 'btn disabled'
     for value in pages.find_all('input'):
         val = value.get('value').strip()
-        values.append(val) # TODO: create this by dict
+        val_name = value.get('name').strip()
+        values[val] = val_name
     for i in values:
-        if str(page) == i:
-            return True
-        else:
-            return False
+        if page == i:
+            return values.get(i)
+    return False
 
-def wait_for_page_loading(src):
+
+def find_btn_disable(src):
+    time.sleep(0.7)
+    soup = BeautifulSoup(src, 'html.parser')
+    btn_disable = int(soup.find(class_='btn disabled').text.strip())
+    time.sleep(0.5)
+    return btn_disable
+
+
+def style_checker(src):
     soup = BeautifulSoup(src, 'html.parser')
     display = soup.find('div', attrs={'id':'LoadingTem'})
     style = display.get('style')
     return style
 
+
+def dot_finder(src):
+    soup = BeautifulSoup(src, 'html.parser')
+    pages = soup.find('span', attrs={'id': 'dtPager'})
+    checker = False
+    for value in pages.find_all('input'):
+        val = value.get('value').strip()
+        if val == '...':
+            if checker is True:
+                val_name = value.get('name').strip()
+                return val_name
+            else:
+                checker = True

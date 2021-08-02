@@ -1,3 +1,7 @@
+from exceptions import NameNotFound
+import sys
+
+
 def insert_site(conn, name, url):
     query = """
         INSERT INTO Site(name, address) VALUES (%s, %s);
@@ -44,7 +48,7 @@ def insert_product(conn, id, model_id, name, number, price):
 def update_site(conn, id, name, url):
     query = """
             UPDATE Site SET name = %s, address = %s
-            WHERE id = '%s';
+            WHERE id = %s;
     """
     cursor = conn.cursor()
     value = (name, url, id)
@@ -55,7 +59,7 @@ def update_site(conn, id, name, url):
 def update_company(conn, id, name):
     query = """
             UPDATE Company SET name = %s
-            WHERE id = '%s';
+            WHERE id = %s;
     """
     cursor = conn.cursor()
     value = (name, id)
@@ -66,7 +70,7 @@ def update_company(conn, id, name):
 def update_model(conn, id, name):
     query = """
             UPDATE site SET name = %s
-            WHERE id = '%s';
+            WHERE id = %s;
     """
     cursor = conn.cursor()
     value = (name, id)
@@ -77,9 +81,29 @@ def update_model(conn, id, name):
 def update_product(conn, id, price):
     query = """
             UPDATE site SET price = %s
-            WHERE id = '%s';
+            WHERE id = %s;
     """
     cursor = conn.cursor()
     value = (price, id)
     cursor.execute(query, value)
     cursor.close()
+
+
+def get_company_id(conn, name):
+    query = "SELECT id FROM Company WHERE name = %s"
+    cursor = conn.cursor()
+    value = (name,)
+    cursor.execute(query, value)
+    com_id = cursor.fetchone()[0]
+    cursor.close()
+    return com_id
+
+
+def get_model_id(conn, name):
+    query = "SELECT id FROM Model WHERE name = %s"
+    cursor = conn.cursor()
+    value = (name,)
+    cursor.execute(query, value)
+    mod_id = cursor.fetchone()[0]
+    cursor.close()
+    return mod_id

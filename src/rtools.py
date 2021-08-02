@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 
 from exceptions import InternetConnectionError
 from bs4 import BeautifulSoup
@@ -13,9 +13,15 @@ import time
 
 
 def selector(driver, selector, text):
-    element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
+    element = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located(selector))
     selecting = Select(element)
     selecting.select_by_visible_text(text)
+
+
+def select_by_value(driver, selector, value):
+    element = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located(selector))
+    selecting = Select(element)
+    selecting.select_by_value(value)
 
 
 def driver(url):
@@ -33,21 +39,22 @@ def driver(url):
 
 
 def char_sender(driver, selector, character):
-    element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
+    element = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located(selector))
     element.send_keys(character)
 
 
 def char_remover(driver, selector):
-    element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
+    element = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located(selector))
     element.clear()
 
 
 def btn_clicker(driver, selector):
-    element = WebDriverWait(driver, settings.delay).until(EC.presence_of_element_located(selector))
+    element = WebDriverWait(driver, settings.delay).until(ec.presence_of_element_located(selector))
     element.click()
 
 
 def number_of_page(driver):
+    time.sleep(0.6)
     try:
         number = driver.find_element_by_id('DataPager1_ctl00_TotalPagesLabel')
         return int(number.text)

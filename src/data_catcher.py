@@ -41,6 +41,7 @@ class Cars:
         for car_ in cars_name:
             self.cars_and_models[car_] = self.cars_model[counter]
             counter += 1
+            self.cars_and_models['NEW'] = ['new']
         all_car_and_model = json.dumps(self.cars_and_models, indent=4, ensure_ascii=False)
 
         with open(self.path, 'w') as f:
@@ -53,7 +54,7 @@ class Cars:
 
 
 def main():
-    car_class = Cars('data.json')
+    car_class = Cars(settings.DATA_FILE)
     car_class.writer()
 
 

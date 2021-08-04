@@ -64,14 +64,20 @@ def number_of_page(driver):
 
 def table_catcher(src):
     info = []
+    row_info = []
     soup = BeautifulSoup(src, 'html.parser')
-    table = soup.find('table')
-    header = table.thead.tr.text.strip().split('\n')
-    body = table.tbody
-    for row in body.find_all('tr'):
-        row_list = row.text.strip().split('\n')
-        info.append(row_list)
-    return info
+    try:
+        table = soup.find('table')
+        body = table.tbody
+        for rows in body.find_all('tr'):
+            for row in rows.find_all('td'):
+                txt = row.text.replace('\n', ' ')
+                row_info.append(txt)
+            info.append(row_info)
+            row_info = []
+        return info
+    except AttributeError:
+        return False
 
 
 def paging(src, page):
@@ -91,10 +97,10 @@ def paging(src, page):
 
 
 def find_btn_disable(src):
-    time.sleep(0.7)
+    time.sleep(0.3)
     soup = BeautifulSoup(src, 'html.parser')
     btn_disable = int(soup.find(class_='btn disabled').text.strip())
-    time.sleep(0.5)
+    time.sleep(0.2)
     return btn_disable
 
 

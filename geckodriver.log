@@ -922,3 +922,30 @@ Gdk-Message: 17:01:24.289: firefox: Fatal IO error 2 (No such file or directory)
 
 Gdk-Message: 17:01:24.284: /usr/lib/firefox/firefox: Fatal IO error 11 (Resource temporarily unavailable) on X server :0.
 
+1628067441781	geckodriver	INFO	Listening on 127.0.0.1:55995
+1628067441787	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilePELa0A"
+*** You are running in headless mode.
+1628067442345	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilePELa0A/search.json.mozlz4", (void 0)))
+1628067443402	Marionette	INFO	Listening on port 41049
+1628067443511	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: services.settings: 
+  main/doh-providers Signature failed  InvalidSignatureError: Invalid content signature (main/doh-providers)
+console.error: services.settings: 
+  main/doh-providers local data was corrupted
+console.warn: services.settings: main/doh-providers Signature verified failed. Retry from scratch
+console.error: services.settings: 
+  main/doh-config Signature failed  InvalidSignatureError: Invalid content signature (main/doh-config)
+console.error: services.settings: 
+  main/doh-config local data was corrupted
+console.warn: services.settings: main/doh-config Signature verified failed. Retry from scratch
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1628067953272	geckodriver	INFO	Listening on 127.0.0.1:49895
+1628067953276	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilekEByI7"
+1628067953734	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilekEByI7/search.json.mozlz4", (void 0)))
+1628067955508	Marionette	INFO	Listening on port 43917
+1628067955594	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628067961204	Marionette	INFO	Stopped listening on port 43917

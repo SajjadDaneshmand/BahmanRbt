@@ -36,7 +36,7 @@ def insert_model(conn, company_id, name):
 
 def insert_product(conn, id, model_id, name, number, price):
     query = """
-            INSERT INTO site(id, model_id, name, number, price)
+            INSERT INTO Product(id, model_id, name, number, price)
             VALUES(%s,%s,%s,%s,%s);
     """
     cursor = conn.cursor()
@@ -69,7 +69,7 @@ def update_company(conn, id, name):
 
 def update_model(conn, id, name):
     query = """
-            UPDATE site SET name = %s
+            UPDATE Model SET name = %s
             WHERE id = %s;
     """
     cursor = conn.cursor()
@@ -80,7 +80,7 @@ def update_model(conn, id, name):
 
 def update_product(conn, id, price):
     query = """
-            UPDATE site SET price = %s
+            UPDATE Product SET price = %s
             WHERE id = %s;
     """
     cursor = conn.cursor()

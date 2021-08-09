@@ -42,6 +42,7 @@ class Cars:
             self.cars_and_models[car_] = self.cars_model[counter]
             counter += 1
             self.cars_and_models['NEW'] = ['new']
+        self.cars_and_models['هاوال'].remove('هاوال H2')
         all_car_and_model = json.dumps(self.cars_and_models, indent=4, ensure_ascii=False)
 
         with open(self.path, 'w') as f:

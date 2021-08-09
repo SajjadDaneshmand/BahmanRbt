@@ -1,7 +1,7 @@
 # selenium
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.firefox.options import Options
+# from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as ec

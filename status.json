@@ -1,16 +1,7 @@
 {
-    "company_passed": [
-        "Dignity",
-        "NEW"
-    ],
-    "company": "سایر",
-    "model_passed": [
-        "پاجرو پنج در",
-        "پاجرو دنده اتوماتیک",
-        "پاجرو سه در",
-        "متفرقه",
-        "مینی تراک"
-    ],
-    "Model": "نا مشخص",
-    "character": "پ"
+    "company_passed": [],
+    "company": "Dignity",
+    "model_passed": [],
+    "Model": "Dignity",
+    "character": "ا"
 }

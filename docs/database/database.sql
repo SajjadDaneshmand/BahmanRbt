@@ -24,15 +24,16 @@ CREATE TABLE IF NOT EXISTS Company(
 CREATE TABLE IF NOT EXISTS Model(
     id INT PRIMARY KEY AUTO_INCREMENT,
     company_id INT NOT NULL,
-    name VARCHAR (255) NOT NULL,
+    name VARCHAR (255) UNIQUE NOT NULL,
     FOREIGN KEY(company_id) REFERENCES Company(id)
 );
 
 CREATE TABLE IF NOT EXISTS Product(
-    id VARCHAR(255) PRIMARY KEY,
+    id VARCHAR(255),
     model_id INT  NOT NULL,
     name VARCHAR(255) NOT NULL,
     number VARCHAR(128),
     price INT NOT NULL,
+    PRIMARY KEY(id, model_id),
     FOREIGN KEY(model_id) REFERENCES Model(id)
 );

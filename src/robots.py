@@ -142,8 +142,11 @@ class BahmanRobot(Robot):
         try:
             while rtools.style_checker(self.driver.page_source) != 'display: none':
                 time.sleep(0.3)
-        except AttributeError or WebDriverException:
+        except AttributeError:
             time.sleep(0.3)
+        except WebDriverException:
+            time.sleep(0.3)
+
         max_page = rtools.number_of_page(self.driver)
         for num in range(max_page):
             yield rtools.table_catcher(self.driver.page_source)

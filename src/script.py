@@ -17,7 +17,7 @@ import mysql
 def scrap(data):
     """
     this method get dictionary and searching dictionary's values(model)
-    and keys(company) to Bahman site for and then, returns all data of
+    and keys(company) to Bahman site and then, returns all data of
     Bahman as list.
     """
     log = Logs()
@@ -41,7 +41,7 @@ def scrap(data):
         checker = True
 
         # check for 'NEW' word because,
-        # this word have a bug.
+        # this word have a bug in the bahman site.
         if not key == 'NEW':
             for value in values:
                 # check model caught or not
@@ -90,23 +90,27 @@ def scrap(data):
 
                     json_dumps(join(settings.BASE_DIR, settings.status_file_name), status)
                     log.info('status saved')
+                check_round = 0
         else:
+            check_round = 0
             if 'new' in status_data['model_passed']:
                 continue
             model_passed.append('new')
 
-            check_round = 1
             for char in settings.persian_letters:
                 # select all characters
                 if char in settings.persian_letters[:settings.persian_letters.index(status_data['character'])]:
+                    check_round += 1
                     continue
+                check_round += 1
 
                 for info in robot.next_page_fetch(key, values, char):
                     if info:
                         yield 'new', info
                     else:
                         continue
-
+                
+                print(f'the check round is: {check_round}')
                 if check_round == len(settings.persian_letters):
                     status = {
                         'company_passed': company_passed[:-1],
@@ -127,6 +131,7 @@ def scrap(data):
                 json_dumps(join(settings.BASE_DIR, settings.status_file_name), status)
                 log.info('status saved')
                 check_round += 1
+            check_round = 0
 
 
 def insert_into_database():
@@ -155,7 +160,7 @@ def insert_into_database():
             # else update price of that part
             try:
                 db.insert_product(conn, code, model_id, name, number, price)
-                log.warning(f'\'{code}\' was not exist.I inserted')
+                log.info(f'\'{code}\' was not exist.I inserted')
             except mysql.connector.errors.IntegrityError:
                 db.update_product(conn, code, price)
 

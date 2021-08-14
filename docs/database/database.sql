@@ -33,7 +33,13 @@ CREATE TABLE IF NOT EXISTS Product(
     model_id INT  NOT NULL,
     name VARCHAR(255) NOT NULL,
     number VARCHAR(128),
-    price INT NOT NULL,
+    price BIGINT NOT NULL,
     PRIMARY KEY(id, model_id),
     FOREIGN KEY(model_id) REFERENCES Model(id)
+);
+
+CREATE TABLE IF NOT EXISTS User(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 );

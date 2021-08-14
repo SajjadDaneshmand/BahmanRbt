@@ -1,7 +1,16 @@
 {
-    "company_passed": [],
-    "company": "Dignity",
-    "model_passed": [],
-    "Model": "Dignity",
-    "character": "ا"
+    "company_passed": [
+        "Dignity",
+        "NEW",
+        "سایر",
+        "سواری FAW"
+    ],
+    "company": "سواری مزدا",
+    "model_passed": [
+        "مزدا 2",
+        "مزدا 2 هاچ بک تیپ A",
+        "مزدا 3 - تیپ 1"
+    ],
+    "Model": "مزدا 3 - تیپ 2",
+    "character": "خ"
 }

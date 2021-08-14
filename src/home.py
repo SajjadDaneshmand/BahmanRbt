@@ -6,7 +6,7 @@ from auth import login_required
 bp = Blueprint('home', __name__, url_prefix='/')
 
 
-@login_required
 @bp.route('/', methods=('GET', 'POST'))
+@login_required
 def home():
     return render_template('home.html')

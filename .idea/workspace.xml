@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d56257a6-bf2d-4548-ab64-b2bad22bf9d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/auth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/home.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/static/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/auth/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/auth/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BahmanRbt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BahmanRbt.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/database/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/docs/database/database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/geckodriver.log" beforeDir="false" afterPath="$PROJECT_DIR$/geckodriver.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/robots.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/robots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/home.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nohup.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/nohup.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/status.json" beforeDir="false" afterPath="$PROJECT_DIR$/status.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

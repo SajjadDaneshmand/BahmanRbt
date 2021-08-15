@@ -8,9 +8,10 @@
 
                 <p style="font-size: 16px;text-align: left;">
                     This web application is for scrap data in bahman site. with this, you can
-                    download all of the parts of car's price as excel. for download file you shuold
-                    going to <a href="http://127.0.0.1:5000/auth/login" style="color: yellow">this page</a>
-                     for login :)
+                    download all the parts of car's price as excel. for download file you should
+                    go to <a href={{ url_for('auth.login') }} style="color: yellow"><strong>this page</strong></a>
+                     for login and <a href={{ url_for('home.account') }} style="color: yellow;"><strong>this page</strong></a>
+                      is<br>for your account :)
                 </p>
         </div>        
     </body>
